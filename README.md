@@ -5,7 +5,7 @@
 *9. Из таблицы Вам нужно получить самые свежие новости в каждой из категорий (по одной новости
 на категорию).*
 ```sql
-create table news (newsid serial, catid integer, stamp timestamp);
+create table news (newsid serial not null, catid integer not null, stamp timestamp not null);
 
 insert into news(catid, stamp)
 select 
@@ -40,7 +40,7 @@ select * from deleted ;
 *11. Сгруппировав таблицу по определённому критерию, Вам нужно для каждой группы получить
 конкатенацию текстового поля в порядке добавления записей.*
 ```sql
-create table datatxt (id serial, txt text, groupid integer, stamp timestamp);
+create table datatxt (id serial not null, txt text not null, groupid integer not null, stamp timestamp not null);
 
 insert into datatxt(txt, groupid, stamp)
 select 
