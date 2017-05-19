@@ -64,3 +64,19 @@ max_from_frames as (
 select m.groupid, f.concut from max_from_frames m
 join framed_data f using(row_number, groupid);
 ```
+
+*12. Отсортировав таблицу по определённому критерию, Вам нужно для каждой записи получить
+среднее значение поля текущей и пяти предыдущих записей («скользящую среднюю»).*
+
+Так как в условии не указано поведение для первых строк, у которых не набирается 5 предыдущих, использую штатное поведение оконной функции
+``` sql
+create table dataavg(id serial not null, value integer not null);
+
+insert into dataavg(value)
+select s.value from (
+  select (random() * 100)::integer as value, generate_series(1,10)
+) as s;
+
+select id, value, avg(value) over(order by id asc rows 5 preceding)
+from dataavg order by id asc;
+```
