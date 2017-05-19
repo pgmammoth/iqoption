@@ -24,3 +24,15 @@ select s.catid, max(s.newsid) from (
   ) f where f.checked
 ) s group by s.catid;
 ```
+---
+*10. Вам нужно создать новую таблицу не из результата запроса SELECT, а из результата запроса
+DELETE.*
+```sql
+select generate_series(1,10) as id into data;
+
+create table deldata as
+with deleted as (
+  delete from data where id in (9,10) returning *
+)
+select * from deleted ;
+```
