@@ -40,18 +40,22 @@ select * from deleted ;
 *11. Сгруппировав таблицу по определённому критерию, Вам нужно для каждой группы получить
 конкатенацию текстового поля в порядке добавления записей.*
 ```sql
-create table data (id serial, groupid integer, stamp timestamp);
+create table datatxt (id serial, txt text, groupid integer, stamp timestamp);
 
-insert into data(groupid, stamp)
-select groupid, now() - random() * interval '10 days' as stamp from generate_series(1,3) as groupid, generate_series(1,5) as num
+insert into datatxt(txt, groupid, stamp)
+select 
+  'txt'||(random() * 100) as text, 
+  groupid, 
+  now() - random() * interval '10 days' as stamp 
+from generate_series(1,3) as groupid, generate_series(1,5) as num
 order by groupid, num;
 
 with framed_data as (
   select
     row_number() over(partition by groupid order by stamp asc),
     groupid,
-    string_agg(id::text,',') over(partition by groupid order by stamp asc) as concut
-  from data
+    string_agg(txt::text,',') over(partition by groupid order by stamp asc) as concut
+  from datatxt
 ),
 max_from_frames as (
   select groupid, max(row_number) as row_number from framed_data
