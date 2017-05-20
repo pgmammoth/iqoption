@@ -82,6 +82,30 @@ select id, value, avg(value) over(order by id asc rows 5 preceding)
 from dataavg order by id asc;
 ```
 
+### Внутреннее устройство.
+*17. Как в PostgreSQL реализованы enum-типы? Можно ли удалить значение из enum-типа?*
+
+```sql
+create type test as enum('a','b');
+
+select enumtypid, enumsortorder, enumlabel from pg_enum 
+where enumtypid = (
+  select oid from pg_type 
+  where typname = 'test' and typnamespace = (
+    select oid from pg_namespace where nspname = 'public'
+  )
+);
+
+delete from pg_enum 
+where enumtypid = (
+  select oid from pg_type 
+  where typname = 'test' and typnamespace = (
+    select oid from pg_namespace where nspname = 'public'
+  )
+)
+and enumlabel = 'a';
+```
+
 ### Решение проблем.
 *19. Программист Вася жалуется, что его запрос выполняется уже полчаса и не собирается
 завершаться. Перечислите возможные причины этого и способы их устранения*
