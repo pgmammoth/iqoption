@@ -1,5 +1,5 @@
-# iqoption
-Собеседование в IQ Option
+# IQ Option
+Собеседование в IQ Option.
 
 ## Вопросы
 ### Общие вопросы.
