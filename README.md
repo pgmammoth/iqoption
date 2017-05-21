@@ -7,25 +7,25 @@
 нововведения оказались для Вас наиболее полезными?*
 
 Дублировать release notes не вижу смысла, напишу про самые важные вещи.
-+ 9.0
+* 9.0
 
 репликация (hot standby); do для выплнения блоков кода на другом языке; exclusion constraints
-+ 9.1
+* 9.1
 
 синхронная репликация; внешние таблицы; extensions; уровень изоляции транзакций serializable; прокачали with; прокачали gist
-+ 9.2
+* 9.2
 
 index only scan; каскадная репликация; pg_basebackup со standby; добавили sp-gist, range data types, json
-+ 9.3
+* 9.3
 
 materialized view, lateral (!!!); fdw поддерживают запись
-+ 9.4
+* 9.4
 
 jsonb; materialized view могут обновляться без блокировки на чтение; логическое декодирование WAL
-+ 9.5
+* 9.5
 
 upsert; grouping sets/cube/rollup; row-level security; brin
-+ 9.6
+* 9.6
 
 параллельное выполнение запросов; fts; возможность fdw использовать план
 
